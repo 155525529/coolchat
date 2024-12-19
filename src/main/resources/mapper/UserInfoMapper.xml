@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coolchat.mapper.UserInfoMapper">
+
+    <update id="updateWithUserInfoDTO" parameterType="com.coolchat.domain.dto.UserInfoDTO">
+        update user_info
+        <set>
+            <if test="userInfo.nickName != null">nick_name = #{userInfo.nickName},</if>
+            <if test="userInfo.sex != null">sex = #{userInfo.sex},</if>
+            <if test="userInfo.joinType != null">join_type = #{userInfo.joinType},</if>
+            <if test="userInfo.personalSignature != null">personal_signature = #{userInfo.personalSignature},</if>
+            <if test="userInfo.areaName != null">area_name = #{userInfo.areaName},</if>
+            <if test="userInfo.areaCode != null">area_code = #{userInfo.areaCode},</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+</mapper>

@@ -1,0 +1,74 @@
+server:
+  port: 5050
+  servlet:
+    context-path: /api
+    session:
+      timeout: PT60M
+mybatis-plus:
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+  global-config:
+    db-config:
+      update-strategy: not_null
+      id-type: auto
+ws:
+  port: 5051 #websocket
+spring:
+  profiles:
+    active: test
+  datasource:
+    url: ${coolchat.datasource.url}
+    driver-class-name: ${coolchat.datasource.driver-class-name}
+    username: ${coolchat.datasource.username}
+    password: ${coolchat.datasource.password}
+    hikari:
+      pool-name: HikariCPDatasource
+      minimum-idle: 5
+      idle-timeout: 180000
+      maximum-pool-size: 10
+      auto-commit: true
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  redis:
+    database: ${coolchat.redis.database}
+    host: ${coolchat.redis.host}
+    port: ${coolchat.redis.port}
+    jedis:
+      pool:
+        # 最大连接数，连接池中最大可以创建的连接数。默认为 8。
+        max-active: 20
+        # 获取连接时的最大等待时间，-1 表示无限等待。
+        max-wait: -1
+        # 最大空闲连接数，连接池中最大可以保持的空闲连接数。
+        max-idle: 10
+        # 最小空闲连接数，连接池中至少保持的空闲连接数。
+        min-idle: 0
+    connect-timeout: 2000
+    password: ${coolchat.redis.password}
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+project:
+  folder: D:/Project/WebProject/coolchat-webser/coolchat
+logging:
+  level:
+    com:
+      coolchat: debug
+admin:
+  emails: ${coolchat.admin.emails}
+#dev: false
+coolchat:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    user-secret-key: ${coolchat.jwt.user-secret-key}
+    # 设置前端传递过来的令牌名称
+    user-token-name: ${coolchat.jwt.user-token-name}
+    # 设置jwt过期时间
+    user-ttl: ${coolchat.jwt.user-ttl}
