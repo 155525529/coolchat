@@ -101,9 +101,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public Result register(RegisterDTO registerDTO) {
 
         //检查验证码
-//        if (!registerDTO.getCheckCode().equalsIgnoreCase((String) redisTemplate.opsForValue().getAndDelete(CHECK_CODE_KEY + registerDTO.getCheckCodeKey()))){
-//            throw new RuntimeException("验证码错误");
-//        }
+        if (!registerDTO.getCheckCode().equalsIgnoreCase((String) redisTemplate.opsForValue().getAndDelete(CHECK_CODE_KEY + registerDTO.getCheckCodeKey()))){
+            throw new RuntimeException("验证码错误");
+        }
         //判断邮箱账号是否已经存在
         UserInfo userInfo = lambdaQuery().eq(UserInfo::getEmail, registerDTO.getEmail()).one();
         if (userInfo != null){
@@ -193,17 +193,17 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public Result<UserInfoVO> login(LoginDTO loginDTO) {
 
         //检查验证码
-//        if (!loginDTO.getCheckCode().equalsIgnoreCase((String) redisTemplate.opsForValue().getAndDelete(CHECK_CODE_KEY + loginDTO.getCheckCodeKey()))){
-//            throw new BizIllegalException("验证码错误");
-//        }
+        if (!loginDTO.getCheckCode().equalsIgnoreCase((String) redisTemplate.opsForValue().getAndDelete(CHECK_CODE_KEY + loginDTO.getCheckCodeKey()))){
+            throw new BizIllegalException("验证码错误");
+        }
         String email = loginDTO.getEmail();
         //对前端传入密码进行加密
         String password = null;
-//        try {
-//            password = Md5Utils.encodeMd5(loginDTO.getPassword());
-//        } catch (NoSuchAlgorithmException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            password = Md5Utils.encodeMd5(loginDTO.getPassword());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         password = loginDTO.getPassword();//test
 
         UserInfo userInfo = lambdaQuery().eq(UserInfo::getEmail, email).one();
