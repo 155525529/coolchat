@@ -204,7 +204,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-        password = loginDTO.getPassword();//test
+//        password = loginDTO.getPassword();//test
 
         UserInfo userInfo = lambdaQuery().eq(UserInfo::getEmail, email).one();
         if (userInfo == null || !password.equals(userInfo.getPassword())) {
